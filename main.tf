@@ -14,6 +14,13 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
+data "aws_subnet" "public_subnet" {
+  filter {
+    name = "tag:Name"
+    values = ["PublicSubnetA"]
+  }
+}
+
 resource "aws_vpc" "tf_class_vpc" {
   cidr_block = "10.0.0.0/16"
  
@@ -27,6 +34,7 @@ resource "aws_instance" "blog" {
   instance_type = var.instance_type
 
   vpc_security_group_ids = [aws_security_group.blog.id]
+  subnet_id = data.aws_subnet.public_subnet.id
 
   tags = {
     Name = "tf_class_HelloWorld"
