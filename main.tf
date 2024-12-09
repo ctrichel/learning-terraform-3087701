@@ -15,12 +15,10 @@ data "aws_ami" "app_ami" {
 }
 
 data "aws_vpc" "default" {
-  filter {
-    name = "id"
-    values = ["vpc-05e3955962d5019d3c"]
-  }
+  cidr_block = "10.0.0.0/16"
+ 
+  id = "vpc-072879d57e02f4e2c"
 }
-
 
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
