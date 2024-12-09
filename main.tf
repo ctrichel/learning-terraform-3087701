@@ -14,13 +14,7 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
-resource "aws_vpc" "tf_class_vpc" {
-  cidr_block = "10.0.0.0/16"
- 
-  tags = {
-    Name = "tf_class_vpc"
-  }
-}
+
 
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
@@ -75,8 +69,16 @@ resource "aws_security_group_rule" "blog_all_out" {
   security_group_id = aws_security_group.blog.id
 }
 
+resource "aws_vpc" "tf_class_vpc" {
+  cidr_block = "10.0.0.0/16"
+ 
+  tags = {
+    Name = "tf_class_vpc"
+  }
+}
+
 resource "aws_subnet" "public_subnet" {
-  vpc_id     = aws_vpc.main.id
+  vpc_id     = aws_vpc.tf_class_vpc.id
   cidr_block = "10.0.0.0/24"
 
   tags = {
