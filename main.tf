@@ -14,6 +14,10 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
+resource "aws_vpc" "tf-class-vpc" {
+  cidr_block = "10.0.0.0/16"
+}
+
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
