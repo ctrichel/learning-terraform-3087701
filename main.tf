@@ -16,7 +16,10 @@ data "aws_ami" "app_ami" {
 
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
-  #default = true
+  
+  tags {
+    Name = "tf_class_vpc"
+  }
 }
 
 resource "aws_instance" "blog" {
@@ -24,7 +27,6 @@ resource "aws_instance" "blog" {
   instance_type = var.instance_type
 
   vpc_security_group_ids = [ aws_security_group.blog.id ]
-  vpc_id = aws_vpc.default.id
 
   tags = {
     Name = "HelloWorld"
