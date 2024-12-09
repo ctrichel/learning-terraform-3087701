@@ -30,7 +30,7 @@ resource "aws_instance" "blog" {
 
 resource "aws_security_group" "blog" {
   name = "blog"
-  description = "allow http/s in and all out"
+  description = "allow http/s in and everything out"
   
   vpc_id = aws_vpc.tf_class_vpc.id
 
