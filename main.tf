@@ -16,8 +16,8 @@ data "aws_ami" "app_ami" {
 
 data "aws_vpc" "default" {
   filter {
-    name = "name"
-    values = ["tf_class_vpc"]
+    name = "id"
+    values = ["vpc-05e3955962d5019d3c"]
   }
 }
 
