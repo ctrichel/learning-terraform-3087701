@@ -29,7 +29,7 @@ resource "aws_instance" "blog" {
   vpc_security_group_ids = [ aws_security_group.blog.id ]
 
   tags = {
-    Name = "HelloWorld"
+    Name = "tf_class_HelloWorld"
   }
 }
 
@@ -38,6 +38,10 @@ resource "aws_security_group" "blog" {
   description = "allow http/s in and all out"
   
   vpc_id = aws_vpc.tf_class_vpc.id
+
+  tags = {
+    Name = "tf_class_sg"
+  }
 }
 
 resource "aws_security_group_rule" "blog_http_in" {
@@ -48,6 +52,10 @@ resource "aws_security_group_rule" "blog_http_in" {
   cidr_blocks = ["0.0.0.0/0"]
   
   security_group_id = aws_security_group.blog.id
+
+  tags = {
+    Name = "tf_class_http_in"
+  }
 }
 
 resource "aws_security_group_rule" "blog_https_in" {
@@ -58,6 +66,10 @@ resource "aws_security_group_rule" "blog_https_in" {
   cidr_blocks = ["0.0.0.0/0"]
   
   security_group_id = aws_security_group.blog.id
+
+  tags = {
+    Name = "tf_class_https_in"
+  }
 }
 
 resource "aws_security_group_rule" "blog_all_out" {
@@ -68,4 +80,8 @@ resource "aws_security_group_rule" "blog_all_out" {
   cidr_blocks = ["0.0.0.0/0"]
   
   security_group_id = aws_security_group.blog.id
+
+  tags = {
+    Name = "tf_class_all_out"
+  }
 }
