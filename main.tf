@@ -14,11 +14,10 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
-resource "aws_vpc" "default" {
-  cidr_block = "10.0.0.0/16"
-  
-  tags = {
-    Name = "tf_class_vpc"
+data "aws_vpc" "default" {
+  filter {
+    name = "Name"
+    values = ["tf_class_vpc"]
   }
 }
 
@@ -37,7 +36,7 @@ resource "aws_security_group" "blog" {
   name = "blog"
   description = "allow http/s in and all out"
   
-  vpc_id = aws_vpc.default.id
+  vpc_id = data.aws_vpc.default.id
 }
 
 resource "aws_security_group_rule" "blog_http_in" {
