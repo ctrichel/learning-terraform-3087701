@@ -24,6 +24,7 @@ resource "aws_instance" "blog" {
   instance_type = var.instance_type
 
   vpc_security_group_ids = [ aws_security_group.blog.id ]
+  vpc_id = aws_vpc.default.id
 
   tags = {
     Name = "HelloWorld"
