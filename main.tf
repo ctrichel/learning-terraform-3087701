@@ -16,24 +16,17 @@ data "aws_ami" "app_ami" {
 
 data "aws_vpc" "default" {
   filter {
-    name = "Name"
+    name = "name"
     values = ["tf_class_vpc"]
   }
 }
 
-data "aws_subnet" "default" {
-    filter {
-    name = "Name"
-    values = ["PublicSubnetA"]
-  }
-}
 
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
 
   vpc_security_group_ids = [ aws_security_group.blog.id ]
-  subnet_id = data.aws_subnet.default.id
 
   tags = {
     Name = "HelloWorld"
