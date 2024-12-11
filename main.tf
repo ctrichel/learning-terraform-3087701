@@ -32,7 +32,7 @@ module "blog_vpc" {
 }
 
 module "blog_autoscaling" {
-  source  = "terraform-aws-modules/autoscaling/aws"
+  source  = "terraform-aws-modules/alb/aws"
   version = "9.12.0"
 
   name = "blog"
