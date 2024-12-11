@@ -60,22 +60,16 @@ module "alb" {
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
-      targets = {
-        my_target = {
-          target_id        = aws_instance.blog.id
-          port = 80
-        }
-      }   
+      target_id        = aws_instance.blog.id  
     }
   ]
 
-  http_tcp_listeners = [
-    {
+  listeners = {
+    http = {
       port     = 80
       protocol = "HTTP"
-      target_group_index = 0
     }
-  ]
+  }
 
   tags = {
     Environment = "dev"
