@@ -54,7 +54,7 @@ module "alb" {
   subnets = module.blog_vpc.public_subnets
   security_groups = [module.blog_vpc.default_security_group_id]
 
-  target_groups = {
+  target_groups = [
     {
       name_prefix      = "blog-"
       protocol         = "HTTP"
@@ -68,7 +68,7 @@ module "alb" {
       }
       
     }
-  }
+  ]
 
   listeners = {
     ex-tcp-http = {
