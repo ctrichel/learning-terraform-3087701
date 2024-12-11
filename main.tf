@@ -14,23 +14,6 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
-
-module "blog_sg" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "5.2.0"
-  name = "blog"
-
-  vpc_id = module.blog_vpc.vpc_id
-  ingress_rules = ["http-80-tcp","https-443-tcp"]
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  egress_rules = ["all-all"]
-  egress_cidr_blocks = ["0.0.0.0/0"]
-
-  tags = {
-    Name = "tf_class_sg"
-  }
-}
-
 module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -50,7 +33,7 @@ module "blog_vpc" {
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
-  vpc_security_group_ids = [module.blog_sg.default_security_group_id]
+  vpc_security_group_ids = [module.blog_vpc.default_security_group_id]
 
   subnet_id = module.blog_vpc.public_subnets[0]
 
@@ -67,7 +50,7 @@ module "alb" {
   name    = "blog-alb"
   vpc_id  = module.blog_vpc.vpc_id
   subnets = module.blog_vpc.public_subnets
-  security_groups = [module.blog_vpc.security_group_id]
+  security_groups = [module.blog_vpc.default_security_group_id]
 
   target_groups = [
     {
