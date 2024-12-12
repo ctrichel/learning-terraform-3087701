@@ -33,7 +33,7 @@ module "blog_vpc" {
 
 module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "6.5.2"
+  version = "8.0.0"
 
   name = "blog"
 
@@ -55,11 +55,12 @@ module "blog_alb" {
   security_groups = [module.blog_sg.security_group_id]
 
   target_groups = {
-    tg-http = {
+    module.blog_autoscaling.autoscaling_group_target_group_arns, tg-http = {
       name_prefix      = "blog-"
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
+      target_id        = module.blog_vpc.vpc_id
     }
   }
 
