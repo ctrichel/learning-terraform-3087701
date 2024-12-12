@@ -55,7 +55,7 @@ module "blog_alb" {
   security_groups = [module.blog_sg.security_group_id]
 
   target_groups = {
-    http = {
+    tg-http = {
       name_prefix      = "blog-"
       protocol         = "HTTP"
       port             = 80
@@ -70,7 +70,7 @@ module "blog_alb" {
       target_group_index = 0
 
       forward = {
-        target_group_key = "http"
+        target_group_key = "tg-http"
       }
     }
   }
