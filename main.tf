@@ -65,7 +65,7 @@ module "blog_alb" {
       target_group_index = 0
 
       forward = {
-        target_group_key = "tg-http"
+        target_group_key = module.blog_autoscaling.autoscaling_group_target_group_arns
       }
     }
   }
