@@ -33,7 +33,6 @@ module "blog_vpc" {
 
 module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "8.0.0"
 
   name = "blog"
 
@@ -42,7 +41,7 @@ module "blog_autoscaling" {
   vpc_zone_identifier = module.blog_vpc.public_subnets
   traffic_source_attachments = {
     ex-alb = {
-      traffic_source_identifier = module.blog_alb.target_groups["tg-http"].arn
+      traffic_source_identifier = "arn:aws:elasticloadbalancing:us-west-2:405634017052:loadbalancer/app/blog-alb/6761273a103c7e12" #module.blog_alb.target_groups["tg-http"].arn
       traffic_source_type       = "elbv2" # default
     }
   }
