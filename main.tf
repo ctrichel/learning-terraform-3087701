@@ -93,5 +93,6 @@ module "blog_sg" {
 
   tags = {
     Name = "tf_class_sg"
+    Project = "tf-class"
   }
 }
