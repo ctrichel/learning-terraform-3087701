@@ -64,8 +64,8 @@ module "blog_alb" {
       name_prefix      = "blog-"
       protocol         = "HTTP"
       port             = 80
-      target_type      = "instance"
-      target_id        = module.blog_autoscaling.id
+      target_type      = "ip"
+      vpc_id        = module.blog_vpc.id
     }
   }
 
