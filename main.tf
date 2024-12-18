@@ -43,6 +43,7 @@ module "blog_autoscaling" {
     ex-alb = {
       traffic_source_identifier = "arn:aws:elasticloadbalancing:us-west-2:405634017052:loadbalancer/app/blog-alb/6761273a103c7e12" #module.blog_alb.target_groups["tg-http"].arn
       traffic_source_type       = "elbv2" # default
+      target_id = "i-0fd6d827015fbb67e"
     }
   }
 
