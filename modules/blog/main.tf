@@ -25,7 +25,7 @@ module "blog_vpc" {
   public_subnets  = ["${var.environment.network_prefix}.101.0/24", "${var.environment.network_prefix}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
 
   tags = {
-    Name = "tf_class_dev_vpc"
+    Name = "tf_class_${var.environment.name}_vpc"
     Terraform = "true"
     Environment = var.environment.name
   }
